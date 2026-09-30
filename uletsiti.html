@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html lang="ulat pucuk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ulet Garden 🐛🌿</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:"Trebuchet MS",Arial,sans-serif;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 15% 15%,rgba(255,255,255,.7) 0 35px,transparent 36px),
+    radial-gradient(circle at 85% 20%,rgba(255,255,255,.6) 0 45px,transparent 46px),
+    linear-gradient(180deg,#dff8c8 0%,#b8e58d 45%,#8dcc68 100%);
+  color:#31522a;
+  overflow-x:hidden;
+}
+
+/* =========================
+   DEKORASI
+========================= */
+
+.cloud{
+  position:fixed;
+  width:130px;
+  height:45px;
+  background:rgba(255,255,255,.72);
+  border-radius:50px;
+  z-index:-1;
+  animation:floatCloud 10s ease-in-out infinite alternate;
+}
+
+.cloud:before,
+.cloud:after{
+  content:"";
+  position:absolute;
+  background:rgba(255,255,255,.72);
+  border-radius:50%;
+}
+
+.cloud:before{
+  width:55px;
+  height:55px;
+  left:20px;
+  top:-25px;
+}
+
+.cloud:after{
+  width:70px;
+  height:70px;
+  right:18px;
+  top:-35px;
+}
+
+.cloud.one{
+  top:8%;
+  left:4%;
+}
+
+.cloud.two{
+  top:15%;
+  right:3%;
+  transform:scale(.8);
+}
+
+@keyframes floatCloud{
+  from{transform:translateX(-8px)}
+  to{transform:translateX(18px)}
+}
+
+.flower{
+  position:fixed;
+  font-size:30px;
+  animation:flowerFloat 4s ease-in-out infinite;
+  z-index:-1;
+}
+
+.f1{left:4%;bottom:7%}
+.f2{right:5%;bottom:12%;animation-delay:1s}
+.f3{left:12%;top:25%;animation-delay:2s}
+.f4{right:12%;top:32%;animation-delay:1.5s}
+
+@keyframes flowerFloat{
+  0%,100%{
+    transform:translateY(0) rotate(-5deg);
+  }
+  50%{
+    transform:translateY(-10px) rotate(7deg);
+  }
+}
+
+/* =========================
+   DASAR
+========================= */
+
+.container{
+  width:min(940px,92%);
+  margin:auto;
+  padding:30px 0 70px;
+}
+
+.stage{
+  display:none;
+  min-height:88vh;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+  animation:stageIn .65s ease;
+}
+
+.stage.active{
+  display:flex;
+}
+
+@keyframes stageIn{
+  from{
+    opacity:0;
+    transform:translateY(20px) scale(.98);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+h1{
+  font-size:clamp(42px,8vw,78px);
+  color:#285b28;
+  text-shadow:4px 5px 0 rgba(255,255,255,.65);
+  margin-bottom:15px;
+}
+
+h2{
+  font-size:clamp(28px,5vw,48px);
+  color:#315f2c;
+  margin-bottom:14px;
+}
+
+.subtitle{
+  font-size:clamp(16px,2.5vw,21px);
+  max-width:700px;
+  line-height:1.7;
+  margin:0 auto 25px;
+}
+
+.main-btn{
+  border:none;
+  background:white;
+  color:#35672e;
+  font-size:17px;
+  font-weight:900;
+  padding:15px 25px;
+  border-radius:999px;
+  cursor:pointer;
+  box-shadow:0 8px 0 #78a85e;
+  transition:.2s;
+  margin:8px;
+}
+
+.main-btn:hover{
+  transform:translateY(-4px) rotate(-1deg);
+  box-shadow:0 12px 0 #78a85e;
+}
+
+.main-btn:active{
+  transform:translateY(3px);
+  box-shadow:0 4px 0 #78a85e;
+}
+
+.sticker{
+  display:inline-block;
+  background:white;
+  padding:8px 15px;
+  border-radius:20px;
+  transform:rotate(-3deg);
+  box-shadow:4px 5px 0 rgba(65,105,45,.18);
+  font-weight:900;
+  margin-bottom:20px;
+}
+
+/* =========================
+   STAGE 1
+========================= */
+
+.big-bug{
+  font-size:110px;
+  animation:bugBounce 1.4s infinite;
+  margin-bottom:15px;
+}
+
+@keyframes bugBounce{
+  0%,100%{
+    transform:translateY(0) rotate(-5deg);
+  }
+  50%{
+    transform:translateY(-15px) rotate(5deg);
+  }
+}
+
+/* =========================
+   STAGE 2
+   CARI ULET
+========================= */
+
+.garden-box{
+  width:min(700px,100%);
+  min-height:440px;
+
+  background:rgba(255,255,255,.42);
+
+  border:4px solid rgba(255,255,255,.65);
+  border-radius:35px;
+
+  padding:25px;
+
+  position:relative;
+  overflow:hidden;
+
+  box-shadow:
+    0 15px 40px rgba(57,100,43,.15);
+}
+
+/*
+   ULET ADA DI DALAM TAMAN,
+   TAPI 100% TIDAK KELIHATAN
+   KARENA DI BAWAH SEMUA DAUN
+*/
+
+.hidden-real-ulet{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  transform:
+    translate(-50%,-50%)
+    scale(0);
+
+  opacity:0;
+
+  z-index:1;
+
+  font-size:90px;
+
+  pointer-events:none;
+
+  filter:
+    drop-shadow(
+      3px 5px 3px rgba(0,0,0,.15)
+    );
+
+  transition:
+    transform .5s ease,
+    opacity .3s ease;
+}
+
+/*
+   SEMUA DAUN ADA DI ATAS ULET
+*/
+
+.leaves{
+  position:relative;
+
+  z-index:20;
+
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+
+  gap:14px;
+
+  max-width:560px;
+
+  margin:25px auto;
+}
+
+.leaf{
+  height:90px;
+
+  border:none;
+
+  border-radius:
+    65% 35% 65% 35%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #5b9d43,
+      #9bd66d
+    );
+
+  font-size:35px;
+
+  cursor:pointer;
+
+  position:relative;
+
+  z-index:30;
+
+  box-shadow:
+    inset -6px -8px rgba(41,92,35,.15),
+    0 6px 0 #6eaa51;
+
+  transition:
+    transform .35s,
+    opacity .35s;
+}
+
+.leaf:hover{
+  transform:
+    rotate(-8deg)
+    scale(1.05);
+}
+
+/*
+   DAUN SUDAH DIBUKA
+*/
+
+.leaf.open{
+  opacity:0;
+
+  pointer-events:none;
+
+  transform:
+    scale(.15)
+    rotate(30deg)
+    translateY(-35px);
+}
+
+/*
+   BARU MUNCUL SETELAH DAUN YANG BENAR DIBUKA
+*/
+
+.hidden-real-ulet.revealed{
+  opacity:1;
+
+  transform:
+    translate(-50%,-50%)
+    scale(1);
+
+  animation:
+    uletFound .6s ease;
+}
+
+@keyframes uletFound{
+
+  0%{
+    transform:
+      translate(-50%,-50%)
+      scale(0)
+      rotate(-20deg);
+  }
+
+  60%{
+    transform:
+      translate(-50%,-50%)
+      scale(1.25)
+      rotate(15deg);
+  }
+
+  100%{
+    transform:
+      translate(-50%,-50%)
+      scale(1)
+      rotate(0);
+  }
+
+}
+
+.message{
+  min-height:30px;
+  font-weight:900;
+  font-size:18px;
+  margin:12px 0;
+}
+
+/* =========================
+   MINI GAME
+========================= */
+
+.game-area{
+  width:min(750px,100%);
+  height:440px;
+
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      #fff8 0 4px,
+      transparent 5px
+    ),
+    radial-gradient(
+      circle at 70% 60%,
+      #fff8 0 5px,
+      transparent 6px
+    ),
+    #b9e69a;
+
+  border:5px solid rgba(255,255,255,.7);
+
+  border-radius:35px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 15px 35px rgba(49,92,39,.18);
+}
+
+.game-ulet{
+  position:absolute;
+
+  font-size:70px;
+
+  cursor:pointer;
+
+  user-select:none;
+
+  transition:
+    left .25s ease,
+    top .25s ease;
+
+  filter:
+    drop-shadow(
+      3px 5px 2px rgba(0,0,0,.15)
+    );
+}
+
+.game-ulet:hover{
+  transform:scale(1.15);
+}
+
+.game-text{
+  min-height:60px;
+
+  font-size:20px;
+
+  font-weight:900;
+
+  margin:15px auto;
+
+  max-width:700px;
+}
+
+/* =========================
+   KARTU
+========================= */
+
+.secret-envelope{
+  width:170px;
+  height:125px;
+
+  background:white;
+
+  border-radius:18px;
+
+  box-shadow:
+    0 12px 0 #c69b73,
+    0 18px 30px rgba(0,0,0,.15);
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  font-size:75px;
+
+  cursor:pointer;
+
+  transition:.25s;
+
+  margin:20px auto;
+}
+
+.secret-envelope:hover{
+  transform:
+    translateY(-8px)
+    rotate(-3deg)
+    scale(1.04);
+}
+
+.insult-card{
+  width:min(520px,95%);
+
+  min-height:300px;
+
+  padding:35px 25px;
+
+  background:#fffdf2;
+
+  border-radius:25px;
+
+  box-shadow:
+    0 15px 30px rgba(79,60,40,.2),
+    inset 0 0 0 3px #f3dfb6;
+
+  animation:
+    cardOpen .5s ease;
+}
+
+@keyframes cardOpen{
+  from{
+    opacity:0;
+    transform:
+      scale(.75)
+      rotate(-5deg);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      scale(1)
+      rotate(0);
+  }
+}
+
+.mini-label{
+  font-size:14px;
+
+  font-weight:900;
+
+  color:#a17b52;
+
+  margin-bottom:35px;
+}
+
+.insult-text{
+  font-size:
+    clamp(42px,8vw,72px);
+
+  font-weight:1000;
+
+  color:#4f743c;
+
+  min-height:100px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+}
+
+.card-counter{
+  margin:10px;
+
+  font-weight:900;
+
+  color:#a08058;
+}
+
+/* =========================
+   WARNING
+========================= */
+
+.warning-card{
+  width:min(720px,100%);
+
+  background:
+    rgba(255,255,255,.72);
+
+  border:
+    4px dashed #8ebc6c;
+
+  border-radius:35px;
+
+  padding:35px 25px;
+
+  box-shadow:
+    0 15px 35px rgba(53,92,42,.15);
+}
+
+.warning-icon{
+  font-size:60px;
+
+  margin-bottom:10px;
+
+  animation:
+    cryBug .7s infinite alternate;
+}
+
+@keyframes cryBug{
+  from{
+    transform:rotate(-5deg);
+  }
+
+  to{
+    transform:rotate(5deg);
+  }
+}
+
+.warning-card p{
+  font-size:19px;
+
+  line-height:1.8;
+
+  font-weight:800;
+
+  margin:15px 0;
+}
+
+.typing-box{
+  min-height:80px;
+
+  padding:20px;
+
+  border-radius:22px;
+
+  background:#f5ffe9;
+
+  font-size:20px;
+
+  font-weight:1000;
+
+  line-height:1.6;
+}
+
+.warning-punchline{
+  background:#effbdc;
+
+  border-radius:22px;
+
+  padding:20px;
+
+  font-size:
+    clamp(21px,4vw,30px);
+
+  font-weight:1000;
+
+  margin:20px 0;
+
+  animation:
+    cryText .8s infinite alternate;
+}
+
+@keyframes cryText{
+  from{
+    transform:scale(1);
+  }
+
+  to{
+    transform:scale(1.03);
+  }
+}
+
+.recruit-status{
+  background:white;
+
+  border-radius:22px;
+
+  padding:20px;
+
+  line-height:2;
+
+  font-size:17px;
+
+  font-weight:900;
+
+  margin:20px 0;
+}
+
+/* =========================
+   FOTO
+========================= */
+
+.photo-card{
+  width:min(550px,95%);
+
+  background:white;
+
+  padding:15px 15px 25px;
+
+  box-shadow:
+    0 15px 35px rgba(0,0,0,.2);
+
+  transform:rotate(-2deg);
+
+  margin:20px auto;
+}
+
+.photo-card img{
+  width:100%;
+
+  max-height:480px;
+
+  object-fit:cover;
+
+  border-radius:5px;
+
+  display:block;
+}
+
+.photo-placeholder{
+  min-height:350px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  background:#cfeab8;
+
+  font-size:80px;
+}
+
+.photo-caption{
+  margin-top:18px;
+
+  font-size:22px;
+
+  font-weight:1000;
+
+  line-height:1.6;
+}
+
+/* =========================
+   SITI
+========================= */
+
+.hearts{
+  font-size:45px;
+
+  letter-spacing:8px;
+
+  animation:
+    heartFloat 1.3s infinite alternate;
+
+  margin:15px;
+}
+
+@keyframes heartFloat{
+  from{
+    transform:
+      scale(.95)
+      rotate(-2deg);
+  }
+
+  to{
+    transform:
+      scale(1.08)
+      rotate(2deg);
+  }
+}
+
+.siti-card{
+  width:min(560px,95%);
+
+  background:white;
+
+  padding:15px 15px 25px;
+
+  border-radius:15px;
+
+  box-shadow:
+    0 18px 35px rgba(0,0,0,.18);
+
+  transform:rotate(2deg);
+}
+
+.siti-card img{
+  width:100%;
+
+  max-height:450px;
+
+  object-fit:cover;
+
+  border-radius:10px;
+
+  display:block;
+}
+
+.siti-placeholder{
+  min-height:350px;
+
+  background:#ffe1ed;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  font-size:90px;
+
+  border-radius:10px;
+}
+
+.siti-text{
+  margin-top:18px;
+
+  font-size:22px;
+
+  font-weight:1000;
+
+  line-height:1.7;
+}
+
+/* =========================
+   CONFETTI
+========================= */
+
+.confetti{
+  position:fixed;
+
+  top:-20px;
+
+  font-size:25px;
+
+  pointer-events:none;
+
+  animation:
+    fall 3s linear forwards;
+
+  z-index:999;
+}
+
+@keyframes fall{
+
+  to{
+
+    transform:
+      translateY(110vh)
+      rotate(720deg);
+
+    opacity:0;
+
+  }
+
+}
+
+/* =========================
+   HP
+========================= */
+
+@media(max-width:600px){
+
+  .container{
+    width:94%;
+    padding-top:18px;
+  }
+
+  .stage{
+    min-height:92vh;
+  }
+
+  .big-bug{
+    font-size:85px;
+  }
+
+  .garden-box{
+    min-height:430px;
+    padding:18px;
+  }
+
+  .leaves{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .leaf{
+    height:80px;
+  }
+
+  .hidden-real-ulet{
+    font-size:75px;
+  }
+
+  .game-area{
+    height:390px;
+  }
+
+  .game-ulet{
+    font-size:58px;
+  }
+
+  .main-btn{
+    font-size:15px;
+    padding:13px 19px;
+  }
+
+  .warning-card{
+    padding:25px 18px;
+  }
+
+  .warning-card p{
+    font-size:17px;
+  }
+
+  .photo-placeholder,
+  .siti-placeholder{
+    min-height:280px;
+  }
+
+  .photo-caption{
+    font-size:19px;
+  }
+
+  .hearts{
+    font-size:32px;
+    letter-spacing:3px;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="cloud one"></div>
+<div class="cloud two"></div>
+
+<div class="flower f1">🌼</div>
+<div class="flower f2">🌸</div>
+<div class="flower f3">🌿</div>
+<div class="flower f4">🌻</div>
+
+
+<div class="container">
+
+
+<!-- =================================================
+     STAGE 1
+================================================= -->
+
+<section class="stage active" id="stage1">
+
+  <div class="sticker">
+    🌿 TAMAN RAHASIA 🌿
+  </div>
+
+  <div class="big-bug">
+    🐛
+  </div>
+
+  <h1>
+    HAIII ULETTT PUCUKKK 🌿
+  </h1>
+
+  <p class="subtitle">
+    selamat datanggg di taman keulet uletan, wkwkw plenger bet dah 😭🐛
+  </p>
+
+  <button
+    class="main-btn"
+    onclick="goToStage(2)"
+  >
+    MASUKKK BAMBANG🌿
+  </button>
+
+</section>
+
+
+<!-- =================================================
+     STAGE 2
+================================================= -->
+
+<section class="stage" id="stage2">
+
+  <h2>
+    EH ADA YANG NGUMPET, APAAN TUH👀
+  </h2>
+
+  <p class="subtitle">
+    katanya ada ulet ngumpet di taman ini...
+    <br>
+    kamu harus carii temenmu, kocyakk 😭🍃
+  </p>
+
+
+  <div class="garden-box">
+
+    <!--
+      ULET DI SINI.
+      TAPI AWALNYA BENAR-BENAR INVISIBLE.
+    -->
+
+    <div
+      class="hidden-real-ulet"
+      id="realUlet"
+    >
+      🐛
+    </div>
+
+
+    <!--
+      DAUN MENUTUPI AREA ULET
+    -->
+
+    <div
+      class="leaves"
+      id="leafContainer"
+    >
+
+      <button
+        class="leaf"
+        data-correct="false"
+      >
+        🍃
+      </button>
+
+      <button
+        class="leaf"
+        data-correct="false"
+      >
+        🌿
+      </button>
+
+      <button
+        class="leaf"
+        data-correct="false"
+      >
+        🍃
+      </button>
+
+      <button
+        class="leaf"
+        data-correct="false"
+      >
+        🌿
+      </button>
+
+      <!-- DAUN YANG MENYEMBUNYIKAN ULET -->
+
+      <button
+        class="leaf"
+        data-correct="true"
+      >
+        🍃
+      </button>
+
+      <button
+        class="leaf"
+        data-correct="false"
+      >
+        🌿
+      </button>
+
+      <button
+        class="leaf"
+        data-correct="false"
+      >
+        🍃
+      </button>
+
+      <button
+        class="leaf"
+        data-correct="false"
+      >
+        🌿
+      </button>
+
+    </div>
+
+
+    <div
+      class="message"
+      id="leafMessage"
+    >
+      dimanaaa yaaa uletnya 🤔
+    </div>
+
+  </div>
+
+
+  <button
+    class="main-btn"
+    id="catchStart"
+    style="display:none"
+    onclick="goToStage(3)"
+  >
+    ITU ULETNYAAA 😭🐛
+  </button>
+
+</section>
+
+
+<!-- =================================================
+     STAGE 3
+================================================= -->
+
+<section class="stage" id="stage3">
+
+  <h2>
+    TANGKEP TEMENMU LETT ULET 🐛
+  </h2>
+
+  <div
+    class="game-text"
+    id="catchText"
+  >
+    AYOK TANGKEP YANG BECUS CIL
+  </div>
+
+
+  <div
+    class="game-area"
+    id="catchArea"
+  >
+
+    <div
+      class="game-ulet"
+      id="catchUlet"
+    >
+      🐛
+    </div>
+
+  </div>
+
+
+  <div class="message">
+
+    ketangkep:
+
+    <span id="catchCount">
+      0
+    </span>
+
+    /6
+
+  </div>
+
+</section>
+
+
+<!-- =================================================
+     STAGE 4
+================================================= -->
+
+<section class="stage" id="stage4">
+
+  <h2>
+    USIR ULETTT 💨🐛
+  </h2>
+
+  <div
+    class="game-text"
+    id="shooText"
+  >
+    aduh adaa lagi ni uletnyaa, muak aku muak
+  </div>
+
+
+  <div
+    class="game-area"
+    id="shooArea"
+  >
+
+    <div
+      class="game-ulet"
+      id="shooUlet"
+    >
+      🐛
+    </div>
+
+  </div>
+
+
+  <div class="message">
+
+    berhasil diusir:
+
+    <span id="shooCount">
+      0
+    </span>
+
+    /6
+
+  </div>
+
+</section>
+
+
+<!-- =================================================
+     STAGE 5
+================================================= -->
+
+<section class="stage" id="stage5">
+
+  <h2>
+    ADA KARTU RAHASIAAA, AWW ULET AW 💌
+  </h2>
+
+  <p class="subtitle">
+    katanya ini kartu spesial yang rahasia banget buat Ulet pucuk...
+    <br>
+    coba bukaaa 😭
+  </p>
+
+
+  <div
+    class="secret-envelope"
+    id="secretEnvelope"
+  >
+    💌
+  </div>
+
+
+  <div
+    class="insult-card"
+    id="insultCard"
+    style="display:none"
+  >
+
+    <div class="mini-label">
+      💌 KARTU KHUSUS BUAT ULETT, AWW
+    </div>
+
+
+    <div
+      class="insult-text"
+      id="insultText"
+    >
+      BOTT 😭
+    </div>
+
+
+    <button
+      class="main-btn"
+      id="nextInsult"
+    >
+      BUKA LAGIII CIL👀
+    </button>
+
+  </div>
+
+
+  <div
+    class="card-counter"
+    id="cardCounter"
+  ></div>
+
+
+  <button
+    class="main-btn"
+    id="warningButton"
+    style="display:none"
+    onclick="goToStage(6)"
+  >
+    ADA PERINGATAN BUAT ULETT 😭
+  </button>
+
+</section>
+
+
+<!-- =================================================
+     STAGE 6
+================================================= -->
+
+<section class="stage" id="stage6">
+
+  <h2>
+    PERINGATAN UNTUK ULETTT 😭🐛
+  </h2>
+
+
+  <div class="warning-card">
+
+    <div class="warning-icon">
+      ⚠️🐛😏😏😏
+    </div>
+
+
+    <p>
+
+      uletttt jangan ngerokok kocyakk 🚭
+
+      <br>
+
+      jangan suka begadangg bott bot🌙
+
+      <br>
+
+      nanti kamu gaa sehatt bambang 🐛
+
+    </p>
+
+
+    <p>
+
+      gimanaa mau direkruttt
+      sama Teh Pucukkk 🌿
+
+    </p>
+
+
+    <div class="typing-box">
+
+      <span id="warningTyping"></span>
+
+    </div>
+
+
+    <div class="warning-punchline">
+
+      �😎😏😎😏😎
+
+      <br>
+
+      GAAA SEHATTTT INI ULETNYAAA
+
+      <br>
+
+      😏😎😏😎😏😎
+
+    </div>
+
+
+    <p>
+
+      nanti orang Teh Pucukkk
+      nyarii ulett laiiinnnn 
+
+      <br>
+
+      soalnyaa yang iniiii...
+      gaa sehatt 🐛
+
+    </p>
+
+
+    <div class="recruit-status">
+
+      🚭 tidak merokokkk → ✅
+
+      <br>
+
+      🌙 tidak begadanggg → ✅
+
+      <br>
+
+      🌿 sehat → ✅
+
+      <br>
+
+      🐛 cocok jadi ulet Teh Pucuk → OFC YES YESSSS 😏
+
+    </div>
+
+
+    <button
+      class="main-btn"
+      onclick="goToStage(7)"
+    >
+      IYAAA AKU SANG ULET AKAN BERUBAH MENJADI ULET YG SEHATTT 😭🐛
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =================================================
+     STAGE 7
+================================================= -->
+
+<section class="stage" id="stage7">
+
+  <div class="sticker">
+    📸 PENAMPAKAN TERAKHIR
+  </div>
+
+
+  <h2>
+    WUJUD ASLI ULETTT 🙈🐛😏😎
+  </h2>
+
+
+  <div class="photo-card">
+
+    <img
+  src="WhatsApp Image 2026-09-18 at 10.46.41.jpeg"
+  alt="Foto Ulet"
+  onerror="
+    this.style.display='none';
+    this.nextElementSibling.style.display='flex';
+  "
+>
+
+
+    <div
+      class="photo-placeholder"
+      style="display:none"
+    >
+      🐛
+    </div>
+
+
+    <div class="photo-caption">
+
+      ulett jenis apaa iniii? 😭
+
+      <br>
+
+      bot ikii ulet e 💀
+
+    </div>
+
+  </div>
+
+
+  <button
+    class="main-btn"
+    onclick="goToStage(8)"
+  >
+    EH BTW... 👀
+  </button>
+
+</section>
+
+
+<!-- =================================================
+     STAGE 8
+================================================= -->
+
+<section class="stage" id="stage8">
+
+  <div class="hearts">
+
+    💗 💕 💘 💗 💕 💘
+
+  </div>
+
+
+  <h2>
+
+    EHH BTW BTW BTW ULETT PUNYAA KEKASIHHH, AWW ULET AWWW 😭💗
+
+  </h2>
+
+
+  <p class="subtitle">
+
+    mau tauuu nggaa??? pastii mau  😏😎
+
+  </p>
+
+
+  <button
+    class="main-btn"
+    onclick="goToStage(9)"
+  >
+    MAUUUU TAUUU 😭
+  </button>
+
+</section>
+
+
+<!-- =================================================
+     STAGE 9
+================================================= -->
+
+<section class="stage" id="stage9">
+
+  <div class="hearts">
+
+    💗💕💘💗💕💘💗💕💘
+
+  </div>
+
+
+  <h2>
+
+    TADAAAA INI DIAAAA 💗
+
+  </h2>
+
+
+  <p class="subtitle">
+
+    KEKASIHHH ULETT, SI SITIII 💕🥰🫶🏻🫶🏻🥰🥰😘🥰😍😘😍
+
+  </p>
+
+
+  <div class="siti-card">
+
+    <img
+  src="WhatsApp Image 2026-09-19 at 11.40.10.jpeg"
+  alt="Siti"
+  onerror="
+    this.style.display='none';
+    this.nextElementSibling.style.display='flex';
+  "
+>
+
+
+    <div
+      class="siti-placeholder"
+      style="display:none"
+    >
+      💕🐛💕
+    </div>
+
+
+    <div class="siti-text">
+
+      CIEEEEEEE ULETT 😭💗💗💗
+
+      <br>
+
+      pasangan mambu daun
+      💕🌿🐛
+
+      <br>
+
+      cocok bangett kalian, WKWKWKWK (sek admin ngakak btw ini dlm hati) 😭💘
+
+    </div>
+
+  </div>
+
+
+  <div class="hearts">
+
+    💗💕💘💗💕💘💗💕💘
+
+  </div>
+
+
+  <button
+    class="main-btn"
+    onclick="confetti()"
+  >
+    CIEEEEEEE (SPAM EN INII)😭💗
+  </button>
+
+</section>
+
+
+</div>
+
+
+<script>
+
+/* =================================================
+   PINDAH STAGE
+================================================= */
+
+function goToStage(number){
+
+  document
+    .querySelectorAll(".stage")
+    .forEach(stage=>{
+      stage.classList.remove("active");
+    });
+
+
+  const target =
+    document.getElementById(
+      "stage"+number
+    );
+
+
+  if(target){
+
+    target.classList.add("active");
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+  }
+
+}
+
+
+/* =================================================
+   STAGE 2
+   CARI ULET
+================================================= */
+
+const leaves =
+  document.querySelectorAll(".leaf");
+
+const realUlet =
+  document.getElementById("realUlet");
+
+const leafMessage =
+  document.getElementById("leafMessage");
+
+const catchStart =
+  document.getElementById("catchStart");
+
+
+let foundUlet=false;
+
+
+leaves.forEach(leaf=>{
+
+  leaf.addEventListener(
+    "click",
+    ()=>{
+
+      if(foundUlet){
+        return;
+      }
+
+
+      const correct =
+        leaf.dataset.correct === "true";
+
+
+      /* =========================
+         DAUN SALAH
+      ========================= */
+
+      if(!correct){
+
+        leaf.classList.add("open");
+
+        leafMessage.textContent =
+          "bukan di siniii 😭 coba daun lainnn";
+
+        return;
+
+      }
+
+
+      /* =========================
+         DAUN BENAR
+      ========================= */
+
+      foundUlet=true;
+
+      leaf.classList.add("open");
+
+
+      /*
+        DAUN HILANG DULU,
+        BARU ULET MUNCUL
+      */
+
+      setTimeout(()=>{
+
+        realUlet.classList.add(
+          "revealed"
+        );
+
+
+        leafMessage.textContent =
+          "NAHHHH KETEMU ULETTT 😭😭😭🐛";
+
+
+        catchStart.style.display =
+          "inline-block";
+
+
+        confetti();
+
+      },450);
+
+    }
+  );
+
+});
+
+
+/* =================================================
+   STAGE 3
+   TANGKEP ULET
+================================================= */
+
+const catchArea =
+  document.getElementById(
+    "catchArea"
+  );
+
+const catchUlet =
+  document.getElementById(
+    "catchUlet"
+  );
+
+const catchText =
+  document.getElementById(
+    "catchText"
+  );
+
+const catchCount =
+  document.getElementById(
+    "catchCount"
+  );
+
+
+const catchMessages=[
+
+  "ihhh bantu aku tangkep uletnya",
+
+  "ayok tangkeppp gimana si",
+
+  "bott bott tangkep yang bener",
+
+  "kok diaa kabur2",
+
+  "rabies taa iki ulet e?",
+
+  "fikss make nihh ulet",
+
+  "kamu sakit yaa let?",
+
+  "nahh akhirnya nii ulet beban ketangkep jugaa, ishh bikin cape ajaa"
+
+];
+
+
+let caught=0;
+
+
+function moveCatchUlet(){
+
+  const maxX =
+    catchArea.clientWidth -
+    catchUlet.offsetWidth -
+    15;
+
+  const maxY =
+    catchArea.clientHeight -
+    catchUlet.offsetHeight -
+    15;
+
+
+  const x =
+    Math.random() *
+    Math.max(maxX,10);
+
+
+  const y =
+    Math.random() *
+    Math.max(maxY,10);
+
+
+  catchUlet.style.left =
+    x+"px";
+
+  catchUlet.style.top =
+    y+"px";
+
+}
+
+
+catchUlet.style.left="50%";
+
+catchUlet.style.top="50%";
+
+catchUlet.style.transform=
+  "translate(-50%,-50%)";
+
+
+catchUlet.addEventListener(
+  "click",
+  event=>{
+
+    event.stopPropagation();
+
+
+    caught++;
+
+
+    catchCount.textContent =
+      caught;
+
+
+    catchText.textContent =
+      catchMessages[
+        Math.min(
+          caught-1,
+          catchMessages.length-1
+        )
+      ];
+
+
+    if(caught<6){
+
+      catchUlet.style.transform =
+        "none";
+
+      moveCatchUlet();
+
+    }
+
+    else{
+
+      catchUlet.style.display =
+        "none";
+
+
+      catchText.textContent =
+        "nahh akhirnya nii ulet beban ketangkep jugaa, ishh bikin cape ajaa";
+
+
+      setTimeout(()=>{
+
+        goToStage(4);
+
+        startShooGame();
+
+      },1600);
+
+    }
+
+  }
+);
+
+
+catchArea.addEventListener(
+  "click",
+  ()=>{
+
+    if(caught<6){
+
+      catchText.textContent =
+        "gimanaa si bott bottt";
+
+      moveCatchUlet();
+
+    }
+
+  }
+);
+
+
+/* =================================================
+   STAGE 4
+   USIR ULET
+================================================= */
+
+const shooArea =
+  document.getElementById(
+    "shooArea"
+  );
+
+const shooUlet =
+  document.getElementById(
+    "shooUlet"
+  );
+
+const shooText =
+  document.getElementById(
+    "shooText"
+  );
+
+const shooCount =
+  document.getElementById(
+    "shooCount"
+  );
+
+
+const shooMessages=[
+
+  "aduh adaa lagi ni ulet",
+
+  "bebal bangett sehh",
+
+  "ulet membandel, kek noda membandel",
+
+  "ihh bau, ulet e mambuu daun",
+
+  "jauh jauh kamuu let",
+
+  "ke sitii ajaa nohhh",
+
+  "akhirnyaa pergii jugaaaaa"
+
+];
+
+
+let shooClicks=0;
+
+
+function moveShooUlet(){
+
+  const maxX =
+    shooArea.clientWidth -
+    shooUlet.offsetWidth -
+    15;
+
+  const maxY =
+    shooArea.clientHeight -
+    shooUlet.offsetHeight -
+    15;
+
+
+  const x =
+    Math.random() *
+    Math.max(maxX,10);
+
+
+  const y =
+    Math.random() *
+    Math.max(maxY,10);
+
+
+  shooUlet.style.left =
+    x+"px";
+
+
+  shooUlet.style.top =
+    y+"px";
+
+
+  shooUlet.style.transform =
+    "none";
+
+}
+
+
+function startShooGame(){
+
+  shooClicks=0;
+
+  shooCount.textContent="0";
+
+  shooText.textContent =
+    "aduh adaa lagi ni ulet";
+
+  shooUlet.style.display =
+    "block";
+
+
+  setTimeout(
+    moveShooUlet,
+    100
+  );
+
+}
+
+
+shooUlet.addEventListener(
+  "click",
+  event=>{
+
+    event.stopPropagation();
+
+
+    shooClicks++;
+
+
+    shooCount.textContent =
+      shooClicks;
+
+
+    if(shooClicks<6){
+
+      shooText.textContent =
+        shooMessages[
+          shooClicks-1
+        ];
+
+      moveShooUlet();
+
+    }
+
+    else{
+
+      shooUlet.style.display =
+        "none";
+
+
+      shooText.textContent =
+        "akhirnyaa pergii jugaaaaa";
+
+
+      setTimeout(
+        ()=>{
+          goToStage(5);
+        },
+        1600
+      );
+
+    }
+
+  }
+);
+
+
+shooArea.addEventListener(
+  "click",
+  ()=>{
+
+    if(shooClicks<6){
+
+      shooText.textContent =
+        "jauh jauh kamuu let 😭";
+
+      moveShooUlet();
+
+    }
+
+  }
+);
+
+
+/* =================================================
+   STAGE 5
+   KARTU RAHASIA
+================================================= */
+
+const secretEnvelope =
+  document.getElementById(
+    "secretEnvelope"
+  );
+
+const insultCard =
+  document.getElementById(
+    "insultCard"
+  );
+
+const insultText =
+  document.getElementById(
+    "insultText"
+  );
+
+const nextInsult =
+  document.getElementById(
+    "nextInsult"
+  );
+
+const cardCounter =
+  document.getElementById(
+    "cardCounter"
+  );
+
+const warningButton =
+  document.getElementById(
+    "warningButton"
+  );
+
+
+const insults=[
+
+  "BOTT 😭",
+
+  "LONTONGGG",
+
+  "CUPANGGG",
+
+  "GOPALLL",
+
+  "BOTAKKK",
+
+  "KACYUNGGG 😭",
+
+  "ULETT PUCUKKK 🌿",
+
+  "MAMBU DAUN 😭",
+
+  "MAMBU TANAH",
+
+  "BEBAN KEBON 😭",
+
+  "MAKHLUK APAAN INIII",
+
+  "SYUHHH JAUH-JAUH 🐛"
+
+];
+
+
+let insultIndex=0;
+
+
+secretEnvelope.addEventListener(
+  "click",
+  ()=>{
+
+    secretEnvelope.style.display =
+      "none";
+
+    insultCard.style.display =
+      "block";
+
+    insultIndex=0;
+
+    showInsult();
+
+  }
+);
+
+
+function showInsult(){
+
+  insultText.textContent =
+    insults[insultIndex];
+
+  cardCounter.textContent =
+    `Kartu ${insultIndex+1}/${insults.length}`;
+
+}
+
+
+nextInsult.addEventListener(
+  "click",
+  ()=>{
+
+    insultIndex++;
+
+
+    if(
+      insultIndex <
+      insults.length
+    ){
+
+      showInsult();
+
+    }
+
+    else{
+
+      insultCard.style.display =
+        "none";
+
+
+      cardCounter.textContent =
+        "udah cukupkk, kasian ulett 😭😭";
+
+
+      warningButton.style.display =
+        "inline-block";
+
+
+      confetti();
+
+    }
+
+  }
+);
+
+
+/* =================================================
+   STAGE 6
+   TYPING ALA CLAIRE
+================================================= */
+
+const warningTyping =
+  document.getElementById(
+    "warningTyping"
+  );
+
+
+const warningTexts=[
+
+  "uletttt jangan ngerokokkkk 😭🚭",
+
+  "jangan suka begadangggg 😭🌙",
+
+  "nanti kamu gaa sehatt 😭😭😭",
+
+  "gimanaa mau direkruttt sama Teh Pucukkk 🌿😭",
+
+  "nanti orang Teh Pucukkk nyarii ulett laiiinnnn 😭😭",
+
+  "soalnyaa yang iniiii gaa sehatt 😭🐛"
+
+];
+
+
+let warningIndex=0;
+
+let warningChar=0;
+
+
+function typeWarning(){
+
+  if(
+    warningChar <
+    warningTexts[warningIndex].length
+  ){
+
+    warningTyping.textContent +=
+      warningTexts[warningIndex]
+        .charAt(warningChar);
+
+
+    warningChar++;
+
+
+    setTimeout(
+      typeWarning,
+      55
+    );
+
+  }
+
+  else{
+
+    setTimeout(()=>{
+
+      warningTyping.textContent =
+        "";
+
+
+      warningChar=0;
+
+
+      warningIndex =
+        (warningIndex+1) %
+        warningTexts.length;
+
+
+      typeWarning();
+
+    },1100);
+
+  }
+
+}
+
+
+typeWarning();
+
+
+/* =================================================
+   CONFETTI
+================================================= */
+
+function confetti(){
+
+  const emojis=[
+
+    "😭",
+    "💗",
+    "💕",
+    "🌿",
+    "🐛",
+    "🌸",
+    "✨"
+
+  ];
+
+
+  for(
+    let i=0;
+    i<45;
+    i++
+  ){
+
+    const item =
+      document.createElement(
+        "div"
+      );
+
+
+    item.className =
+      "confetti";
+
+
+    item.textContent =
+      emojis[
+        Math.floor(
+          Math.random() *
+          emojis.length
+        )
+      ];
+
+
+    item.style.left =
+      Math.random()*100+"vw";
+
+
+    item.style.animationDuration =
+      (2+Math.random()*2)+"s";
+
+
+    item.style.animationDelay =
+      Math.random()*.7+"s";
+
+
+    document.body.appendChild(
+      item
+    );
+
+
+    setTimeout(
+      ()=>{
+        item.remove();
+      },
+      4500
+    );
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
